@@ -16,7 +16,7 @@ int main(){
 	
 	imprimeMatriz();
 	
-	//getchar();
+	/*getchar();*/
 	return 0;	
 }
 
