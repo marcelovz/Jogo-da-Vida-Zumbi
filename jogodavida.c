@@ -7,33 +7,119 @@ void carregaMatriz();
 void imprimeMatriz(); 
 
 int matrizAtual[TAM][TAM];
+int matrizNova[TAM][TAM];
 
 int main(){
 	int geracoes;
-	int i, j, k;
+	int g, i, j;
+	int zumbi, vizinhosVivos;
 	
 	inicializaMatriz();
 	
 	carregaMatriz();
 	
-	imprimeMatriz();
+	//imprimeMatriz();
 	
 	
 	printf("Digite o número de gerações: ");
 	scanf("%d", &geracoes);
 	
-	for(i=0; i<geracoes; i++){
+	for(g=0; g<geracoes; g++){
 		
-		for(j=0; j<TAM; j++){
-			for (k=0; k<TAM; k++){
+		for(i=0; i<TAM; i++){
+			for (j=0; j<TAM; j++){
 				zumbi=0;
-				vivos=0;
+				vizinhosVivos=0;
 				
-				
+				//verifica a posicao i-1, j-1 da matriz
+					if(matrizAtual[i-1][j-1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i-1][j-1] == 2){
+								zumbi++;
+							}
+
+                  //verifica a posicao i-1, j da matriz
+					if(matrizAtual[i-1][j] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i-1][j] == 2){
+								zumbi++;
+							}
+
+                  //verifica a posicao i-1, j+1 da matriz
+					if(matrizAtual[i-1][j+1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i-1][j+1] == 2){
+								zumbi++;
+							}
+						
+                  //verifica a posicao i, j-1 da matriz
+					if(matrizAtual[i][j-1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i][j-1] == 2){
+								zumbi++;
+							}
+
+                  //verifica a posicao i, j+1 da matriz
+					if(matrizAtual[i][j+1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i][j+1] == 2){
+								zumbi++;
+							}
+
+                  //verifica a posicao i+1, j-1 da matriz
+					if(matrizAtual[i+1][j-1] == 1){
+						vizinhosVivos++;
+						}
+					else if(matrizAtual[i+1][j-1] == 2){
+							zumbi++;
+						}
+
+                  //verifica a posicao i+1, j da matriz
+					if(matrizAtual[i+1][j] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i+1][j] == 2){
+								zumbi++;
+							}
+
+                  //verifica a posicao i+1, j+1 da matriz
+					if(matrizAtual[i+1][j+1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i+1][j+1] == 2){
+								zumbi++;
+							}
+						
+					if(zumbi >= 1)
+						matrizNova[i][j] = 2;
+					if(vizinhosVivos == 8)
+						matrizNova[i][j] = 2;
+					if(vizinhosVivos == 0 && matrizAtual[i][j] == 2)
+						matrizNova[i][j] = 0;
+					if(vizinhosVivos >= 1 && matrizAtual[i][j] == 2)
+						matrizNova[i][j] = 2;
+					if(vizinhosVivos < 2 || vizinhosVivos > 3)
+						matrizNova[i][j] = 0;
+					if(matrizAtual[i][j] == 0 && vizinhosVivos == 3)
+						matrizNova[i][j] = 1;
+					if(matrizAtual[i][j] == 1 && (vizinhosVivos == 2 || vizinhosVivos == 3))
+						matrizNova[i][j] = 1;
 			}
 		}
 		
+		//Copia da matriz provisória para a permanente
+		for(i=0; i<TAM; i++){
+			for(j=0; j<TAM; j++){
+				matrizAtual[i][j] = matrizNova[i][j];		
+			}
+		}
 		
+		imprimeMatriz();
 	}
 	
 	
@@ -76,4 +162,14 @@ void imprimeMatriz() {
 		} 
 		printf("\n");
 	}
+	printf("\n");
+}
+
+void calculaNovaGeracao(){
+	
+	
+	
+	
+	
+	
 }
