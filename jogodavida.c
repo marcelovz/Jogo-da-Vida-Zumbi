@@ -9,12 +9,35 @@ void imprimeMatriz();
 int matrizAtual[TAM][TAM];
 
 int main(){
+	int geracoes;
+	int i, j, k;
 	
 	inicializaMatriz();
 	
 	carregaMatriz();
 	
 	imprimeMatriz();
+	
+	
+	printf("Digite o número de gerações: ");
+	scanf("%d", &geracoes);
+	
+	for(i=0; i<geracoes; i++){
+		
+		for(j=0; j<TAM; j++){
+			for (k=0; k<TAM; k++){
+				zumbi=0;
+				vivos=0;
+				
+				
+			}
+		}
+		
+		
+	}
+	
+	
+	
 	
 	/*getchar();*/
 	return 0;	
