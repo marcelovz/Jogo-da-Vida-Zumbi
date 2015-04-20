@@ -18,7 +18,7 @@ int main(){
 	
 	carregaMatriz();
 	
-	//imprimeMatriz();
+	imprimeMatriz();
 	
 	
 	printf("Digite o número de gerações: ");
@@ -27,35 +27,40 @@ int main(){
 	for(g=0; g<geracoes; g++){
 		
 		for(i=0; i<TAM; i++){
-			for (j=0; j<TAM; j++){
+			for(j=0; j<TAM; j++){	
 				zumbi=0;
 				vizinhosVivos=0;
 				
-				//verifica a posicao i-1, j-1 da matriz
-					if(matrizAtual[i-1][j-1] == 1){
+				if(i == 0 && j == 0)
+				{
+					//verifica o vizinho i, j+1
+					if(matrizAtual[i][j+1] == 1){
 						vizinhosVivos++;
 						}
-						else if(matrizAtual[i-1][j-1] == 2){
+						else if(matrizAtual[i][j+1] == 2){
 								zumbi++;
 							}
-
-                  //verifica a posicao i-1, j da matriz
-					if(matrizAtual[i-1][j] == 1){
+					
+					//verifica o vizinho i+1, j
+					if(matrizAtual[i+1][j] == 1){
 						vizinhosVivos++;
 						}
-						else if(matrizAtual[i-1][j] == 2){
+						else if(matrizAtual[i+1][j] == 2){
 								zumbi++;
 							}
-
-                  //verifica a posicao i-1, j+1 da matriz
-					if(matrizAtual[i-1][j+1] == 1){
+							
+					//verifica o vizinho i+1, j+1
+					if(matrizAtual[i+1][j+1] == 1){
 						vizinhosVivos++;
 						}
-						else if(matrizAtual[i-1][j+1] == 2){
+						else if(matrizAtual[i+1][j+1] == 2){
 								zumbi++;
-							}
-						
-                  //verifica a posicao i, j-1 da matriz
+							}				
+				} 
+				
+				if(i == 0 && j > 0 && j< TAM-1)
+				{	
+					//verifica o vizinho i, j-1
 					if(matrizAtual[i][j-1] == 1){
 						vizinhosVivos++;
 						}
@@ -63,15 +68,15 @@ int main(){
 								zumbi++;
 							}
 
-                  //verifica a posicao i, j+1 da matriz
+					//verifica o vizinho i, j+1
 					if(matrizAtual[i][j+1] == 1){
 						vizinhosVivos++;
 						}
 						else if(matrizAtual[i][j+1] == 2){
 								zumbi++;
 							}
-
-                  //verifica a posicao i+1, j-1 da matriz
+							
+					//verifica o vizinho i+1, j-1
 					if(matrizAtual[i+1][j-1] == 1){
 						vizinhosVivos++;
 						}
@@ -79,7 +84,7 @@ int main(){
 							zumbi++;
 						}
 
-                  //verifica a posicao i+1, j da matriz
+					//verifica o vizinho i+1, j
 					if(matrizAtual[i+1][j] == 1){
 						vizinhosVivos++;
 						}
@@ -87,28 +92,318 @@ int main(){
 								zumbi++;
 							}
 
-                  //verifica a posicao i+1, j+1 da matriz
+					//verifica o vizinho i+1, j+1
 					if(matrizAtual[i+1][j+1] == 1){
 						vizinhosVivos++;
 						}
 						else if(matrizAtual[i+1][j+1] == 2){
 								zumbi++;
+							}					
+				}
+				
+				if(i == 0 && j == TAM-1)
+				{
+					//verifica o vizinho i, j-1
+					if(matrizAtual[i][j-1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i][j-1] == 2){
+								zumbi++;
+							}
+					
+					//verifica o vizinho i+1, j-1
+					if(matrizAtual[i+1][j-1] == 1){
+						vizinhosVivos++;
+						}
+					else if(matrizAtual[i+1][j-1] == 2){
+							zumbi++;
+						}
+
+					//verifica o vizinho i+1, j
+					if(matrizAtual[i+1][j] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i+1][j] == 2){
+								zumbi++;
+							}				
+				}
+				
+				if(i > 0 && i < TAM-1 && j == 0)
+				{
+					//verifica o vizinho i-1, j
+					if(matrizAtual[i-1][j] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i-1][j] == 2){
+								zumbi++;
+							}
+
+					//verifica o vizinho i-1, j+1
+					if(matrizAtual[i-1][j+1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i-1][j+1] == 2){
+								zumbi++;
 							}
 						
-					if(zumbi >= 1)
-						matrizNova[i][j] = 2;
-					if(vizinhosVivos == 8)
-						matrizNova[i][j] = 2;
-					if(vizinhosVivos == 0 && matrizAtual[i][j] == 2)
-						matrizNova[i][j] = 0;
-					if(vizinhosVivos >= 1 && matrizAtual[i][j] == 2)
-						matrizNova[i][j] = 2;
-					if(vizinhosVivos < 2 || vizinhosVivos > 3)
-						matrizNova[i][j] = 0;
-					if(matrizAtual[i][j] == 0 && vizinhosVivos == 3)
-						matrizNova[i][j] = 1;
-					if(matrizAtual[i][j] == 1 && (vizinhosVivos == 2 || vizinhosVivos == 3))
-						matrizNova[i][j] = 1;
+					//verifica o vizinho i, j+1
+					if(matrizAtual[i][j+1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i][j+1] == 2){
+								zumbi++;
+							}
+					
+					//verifica o vizinho i+1, j+1
+					if(matrizAtual[i+1][j+1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i+1][j+1] == 2){
+								zumbi++;
+							}	
+							
+					//verifica o vizinho i+1, j
+					if(matrizAtual[i+1][j] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i+1][j] == 2){
+								zumbi++;
+							}
+				}
+				
+				if(i == TAM-1 && j == 0)
+				{
+					//verifica o vizinho i-1, j
+					if(matrizAtual[i-1][j] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i-1][j] == 2){
+								zumbi++;
+							}
+
+					//verifica o vizinho i-1, j+1
+					if(matrizAtual[i-1][j+1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i-1][j+1] == 2){
+								zumbi++;
+							}
+					
+					//verifica o vizinho i, j+1
+					if(matrizAtual[i][j+1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i][j+1] == 2){
+								zumbi++;
+							}
+				}
+				
+				if(i == TAM-1 && j > 0 && j < TAM-1)
+				{
+					//verifica o vizinho i, j-1
+					if(matrizAtual[i][j-1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i][j-1] == 2){
+								zumbi++;
+							}
+					
+					//verifica o vizinho i-1, j-1  
+					if(matrizAtual[i-1][j-1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i-1][j-1] == 2){
+								zumbi++;
+							}
+
+					//verifica o vizinho i-1, j
+					if(matrizAtual[i-1][j] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i-1][j] == 2){
+								zumbi++;
+							}
+
+					//verifica o vizinho i-1, j+1
+					if(matrizAtual[i-1][j+1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i-1][j+1] == 2){
+								zumbi++;
+							}
+					
+					//verifica o vizinho i, j+1
+					if(matrizAtual[i][j+1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i][j+1] == 2){
+								zumbi++;
+							}
+				}
+				
+				if(i == TAM-1 && j == TAM-1)
+				{
+					//verifica o vizinho i, j-1
+					if(matrizAtual[i][j-1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i][j-1] == 2){
+								zumbi++;
+							}
+					
+					//verifica o vizinho i-1, j-1  
+					if(matrizAtual[i-1][j-1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i-1][j-1] == 2){
+								zumbi++;
+							}
+					
+					//verifica o vizinho i-1, j
+					if(matrizAtual[i-1][j] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i-1][j] == 2){
+								zumbi++;
+							}
+				}
+				
+				if(i > 0 && i < TAM-1 && j == TAM-1)
+				{
+					//verifica o vizinho i-1, j
+					if(matrizAtual[i-1][j] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i-1][j] == 2){
+								zumbi++;
+							}
+							
+					//verifica o vizinho i-1, j-1  
+					if(matrizAtual[i-1][j-1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i-1][j-1] == 2){
+								zumbi++;
+							}
+
+					//verifica o vizinho i, j-1
+					if(matrizAtual[i][j-1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i][j-1] == 2){
+								zumbi++;
+							}
+							
+					//verifica o vizinho i+1, j-1
+					if(matrizAtual[i+1][j-1] == 1){
+						vizinhosVivos++;
+						}
+					else if(matrizAtual[i+1][j-1] == 2){
+							zumbi++;
+						}
+
+					//verifica o vizinho i+1, j
+					if(matrizAtual[i+1][j] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i+1][j] == 2){
+								zumbi++;
+							}
+				}
+				
+				else{
+					//verifica o vizinho i-1, j-1  
+					if(matrizAtual[i-1][j-1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i-1][j-1] == 2){
+								zumbi++;
+							}
+
+					//verifica o vizinho i-1, j
+					if(matrizAtual[i-1][j] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i-1][j] == 2){
+								zumbi++;
+							}
+
+					//verifica o vizinho i-1, j+1
+					if(matrizAtual[i-1][j+1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i-1][j+1] == 2){
+								zumbi++;
+							}
+						
+					//verifica o vizinho i, j-1
+					if(matrizAtual[i][j-1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i][j-1] == 2){
+								zumbi++;
+							}
+
+					//verifica o vizinho i, j+1
+					if(matrizAtual[i][j+1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i][j+1] == 2){
+								zumbi++;
+							}
+
+					//verifica o vizinho i+1, j-1
+					if(matrizAtual[i+1][j-1] == 1){
+						vizinhosVivos++;
+						}
+					else if(matrizAtual[i+1][j-1] == 2){
+							zumbi++;
+						}
+
+					//verifica o vizinho i+1, j
+					if(matrizAtual[i+1][j] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i+1][j] == 2){
+								zumbi++;
+							}
+
+					//verifica o vizinho i+1, j+1
+					if(matrizAtual[i+1][j+1] == 1){
+						vizinhosVivos++;
+						}
+						else if(matrizAtual[i+1][j+1] == 2){
+								zumbi++;
+							}	
+						
+					}
+							
+				
+				
+				 
+		//Verifica as regras 			
+		if(matrizAtual[i][j] == 1 && (zumbi >= 1 || vizinhosVivos == 8)){
+			matrizNova[i][j] = 2;
+		}
+		
+		if(matrizAtual[i][j] == 2 && vizinhosVivos == 0)
+			matrizNova[i][j] = 0;
+			
+		if(matrizAtual[i][j] == 2 && vizinhosVivos >= 1)
+			matrizNova[i][j] = 2;
+			
+		if(matrizAtual[i][j] == 1 && (vizinhosVivos < 2 || vizinhosVivos > 3))
+			matrizNova[i][j] = 0;
+		
+		if(matrizAtual[i][j] == 0 && vizinhosVivos == 3)
+			matrizNova[i][j] = 1;
+		
+		if(matrizAtual[i][j] == 1 && (vizinhosVivos == 2 || vizinhosVivos == 3))
+			matrizNova[i][j] = 1;
+		
+		else 
+			matrizNova[i][j] = matrizAtual[i][j];
+				
 			}
 		}
 		
@@ -165,11 +460,3 @@ void imprimeMatriz() {
 	printf("\n");
 }
 
-void calculaNovaGeracao(){
-	
-	
-	
-	
-	
-	
-}
