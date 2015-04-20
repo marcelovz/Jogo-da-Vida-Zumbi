@@ -382,23 +382,22 @@ int main(){
 				
 				 
 		//Verifica as regras 			
-		if(matrizAtual[i][j] == 1 && (zumbi >= 1 || vizinhosVivos == 8)){
+		if(matrizAtual[i][j] == 1 && (zumbi >= 1 || vizinhosVivos == 8))
 			matrizNova[i][j] = 2;
-		}
 		
-		if(matrizAtual[i][j] == 2 && vizinhosVivos == 0)
-			matrizNova[i][j] = 0;
+		else if(matrizAtual[i][j] == 2 && vizinhosVivos == 0)
+				matrizNova[i][j] = 0;
 			
-		if(matrizAtual[i][j] == 2 && vizinhosVivos >= 1)
+		else if(matrizAtual[i][j] == 2 && vizinhosVivos >= 1)
 			matrizNova[i][j] = 2;
 			
-		if(matrizAtual[i][j] == 1 && (vizinhosVivos < 2 || vizinhosVivos > 3))
+		else if(matrizAtual[i][j] == 1 && (vizinhosVivos < 2 || vizinhosVivos > 3))
 			matrizNova[i][j] = 0;
 		
-		if(matrizAtual[i][j] == 0 && vizinhosVivos == 3)
+		else if(matrizAtual[i][j] == 0 && vizinhosVivos == 3)
 			matrizNova[i][j] = 1;
 		
-		if(matrizAtual[i][j] == 1 && (vizinhosVivos == 2 || vizinhosVivos == 3))
+		else if(matrizAtual[i][j] == 1 && (vizinhosVivos == 2 || vizinhosVivos == 3))
 			matrizNova[i][j] = 1;
 		
 		else 
