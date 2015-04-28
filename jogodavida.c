@@ -1,28 +1,33 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#define TAM 5
 
 void inicializaMatriz();
-void carregaMatriz();
+void carregaMatriz(char *nome);
 void imprimeMatriz(); 
+void salvaMatriz(char *nome);
 
-int matrizAtual[TAM][TAM];
-int matrizNova[TAM][TAM];
+int matrizAtual[1000][1000];
+int matrizNova[1000][1000];
+int TAM;
+char *arq_entrada, *arq_saida;
 
 int main(){
 	int geracoes;
 	int g, i, j;
 	int zumbi, vizinhosVivos;
+	char arq[200];
+	
+	//Entrada dos dados via terminal
+	scanf("%d %d %[^\n]s", &TAM, &geracoes, arq);
+	arq_entrada = strtok(arq, " ");
+	arq_saida = strtok(NULL, " ");
 	
 	inicializaMatriz();
-	
-	carregaMatriz();
-	
+	carregaMatriz(arq_entrada);
+	printf("\n1ª geração:\n");
 	imprimeMatriz();
-	
-	
-	printf("Digite o número de gerações: ");
-	scanf("%d", &geracoes);
 	
 	for(g=0; g<geracoes; g++){
 		
@@ -376,10 +381,7 @@ int main(){
 								zumbi++;
 							}	
 						
-					}
-							
-				
-				
+					}		
 				 
 		//Verifica as regras 			
 		if(matrizAtual[i][j] == 1 && (zumbi >= 1 || vizinhosVivos == 8))
@@ -412,12 +414,11 @@ int main(){
 				matrizAtual[i][j] = matrizNova[i][j];		
 			}
 		}
-		
+		printf("%dª geração:\n", g+2);
 		imprimeMatriz();
 	}
 	
-	
-	
+	salvaMatriz(arq_saida);
 	
 	/*getchar();*/
 	return 0;	
@@ -433,11 +434,11 @@ void inicializaMatriz (){
 	}
 }
 
-void carregaMatriz() {
+void carregaMatriz(char *nome) {
 	FILE *arq; 
 	int linha, coluna, valor;
 	
-	arq = fopen("entrada.txt", "r");
+	arq = fopen(nome, "r");
 	
 	while(fscanf(arq, "%d,%d %d\n", &linha, &coluna, &valor) != EOF){	
 		matrizAtual[linha-1][coluna-1] = valor;
@@ -457,5 +458,31 @@ void imprimeMatriz() {
 		printf("\n");
 	}
 	printf("\n");
+}
+
+void salvaMatriz(char *nome){
+	FILE *arq;
+	int i, j;
+	int contZumbi=0, contVivos=0, contMortos=0;
+	
+	for(i=0; i<TAM; i++){
+		for(j=0; j<TAM; j++){
+			if(matrizAtual[i][j] == 0){
+				contMortos++;
+			}
+			else if(matrizAtual[i][j] == 1){
+					contVivos++;				
+				}
+				else contZumbi++;	
+		} 
+	}
+	arq = fopen(nome, "w");
+	//fprintf(arq, "%d %d %d", contVivos, contZumbi, contMortos);
+	
+	fprintf(arq, "%d células vivas\n", contVivos);
+	fprintf(arq, "%d células zumbi\n", contZumbi);
+	fprintf(arq, "%d células mortas", contMortos);
+	
+	fclose(arq);
 }
 
