@@ -1,23 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <pthread.h>
 
+#define NUM_THREADS 6 //número de cores do processador AMD FX-6300
 
 void inicializaMatriz();
 void carregaMatriz(char *nome);
 void imprimeMatriz(); 
 void salvaMatriz(char *nome);
+void jogo();
 
 int matrizAtual[1000][1000];
 int matrizNova[1000][1000];
-int TAM;
+int TAM, geracoes;
 char *arq_entrada, *arq_saida;
 
 int main(){
-	int geracoes;
-	int g, i, j;
-	int zumbi, vizinhosVivos;
+	//int i;
 	char arq[200];
+	//pthread_t thread[NUM_THREADS];
 	
 	//Entrada dos dados via terminal
 	scanf("%d %d %[^\n]s", &TAM, &geracoes, arq);
@@ -26,8 +28,87 @@ int main(){
 	
 	inicializaMatriz();
 	carregaMatriz(arq_entrada);
+	
 	printf("\n1ª geração:\n");
 	imprimeMatriz();
+	
+	/*for(i=0; i<NUM_THREADS; i++){
+       pthread_create(&thread[i], NULL, jogo, NULL);
+   }*/
+	
+	jogo();
+	
+	salvaMatriz(arq_saida);
+	
+	/*getchar();*/
+	return 0;	
+}
+
+void inicializaMatriz (){
+	int i, j;
+	
+	for(i=0; i<TAM; i++){
+		for(j=0; j<TAM; j++){
+			matrizAtual[i][j] = 0;	
+		} 
+	}
+}
+
+void carregaMatriz(char *nome) {
+	FILE *arq; 
+	int linha, coluna, valor;
+	
+	arq = fopen(nome, "r");
+	
+	while(fscanf(arq, "%d,%d %d\n", &linha, &coluna, &valor) != EOF){	
+		matrizAtual[linha-1][coluna-1] = valor;
+	}
+	
+	fclose(arq);
+	
+}
+
+void imprimeMatriz() {
+	int i, j;
+	
+	for(i=0; i<TAM; i++){
+		for(j=0; j<TAM; j++){
+			printf("%d ", matrizAtual[i][j]);	
+		} 
+		printf("\n");
+	}
+	printf("\n");
+}
+
+void salvaMatriz(char *nome){
+	FILE *arq;
+	int i, j;
+	int contZumbi=0, contVivos=0, contMortos=0;
+	
+	for(i=0; i<TAM; i++){
+		for(j=0; j<TAM; j++){
+			if(matrizAtual[i][j] == 0){
+				contMortos++;
+			}
+			else if(matrizAtual[i][j] == 1){
+					contVivos++;				
+				}
+				else contZumbi++;	
+		} 
+	}
+	//cria um arquivo de saída
+	arq = fopen(nome, "w");
+	
+	fprintf(arq, "%d células vivas\n", contVivos);
+	fprintf(arq, "%d células zumbi\n", contZumbi);
+	fprintf(arq, "%d células mortas", contMortos);
+	
+	fclose(arq);
+}
+
+void jogo(){
+	int g, i, j;
+	int zumbi, vizinhosVivos; 
 	
 	for(g=0; g<geracoes; g++){
 		
@@ -417,72 +498,5 @@ int main(){
 		printf("%dª geração:\n", g+2);
 		imprimeMatriz();
 	}
-	
-	salvaMatriz(arq_saida);
-	
-	/*getchar();*/
-	return 0;	
+		
 }
-
-void inicializaMatriz (){
-	int i, j;
-	
-	for(i=0; i<TAM; i++){
-		for(j=0; j<TAM; j++){
-			matrizAtual[i][j] = 0;	
-		} 
-	}
-}
-
-void carregaMatriz(char *nome) {
-	FILE *arq; 
-	int linha, coluna, valor;
-	
-	arq = fopen(nome, "r");
-	
-	while(fscanf(arq, "%d,%d %d\n", &linha, &coluna, &valor) != EOF){	
-		matrizAtual[linha-1][coluna-1] = valor;
-	}
-	
-	fclose(arq);
-	
-}
-
-void imprimeMatriz() {
-	int i, j;
-	
-	for(i=0; i<TAM; i++){
-		for(j=0; j<TAM; j++){
-			printf("%d ", matrizAtual[i][j]);	
-		} 
-		printf("\n");
-	}
-	printf("\n");
-}
-
-void salvaMatriz(char *nome){
-	FILE *arq;
-	int i, j;
-	int contZumbi=0, contVivos=0, contMortos=0;
-	
-	for(i=0; i<TAM; i++){
-		for(j=0; j<TAM; j++){
-			if(matrizAtual[i][j] == 0){
-				contMortos++;
-			}
-			else if(matrizAtual[i][j] == 1){
-					contVivos++;				
-				}
-				else contZumbi++;	
-		} 
-	}
-	arq = fopen(nome, "w");
-	//fprintf(arq, "%d %d %d", contVivos, contZumbi, contMortos);
-	
-	fprintf(arq, "%d células vivas\n", contVivos);
-	fprintf(arq, "%d células zumbi\n", contZumbi);
-	fprintf(arq, "%d células mortas", contMortos);
-	
-	fclose(arq);
-}
-
