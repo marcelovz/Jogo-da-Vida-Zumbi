@@ -1,3 +1,8 @@
+//JOGO DA VIDA ZUMBI
+//ALUNO: MARCELO VOIGT ZSCHORNACK
+
+//OBSERVAÇÃO: NÃO FOI POSSÍVEL DESENVOLVER O JOGO COM PTHREADS
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
